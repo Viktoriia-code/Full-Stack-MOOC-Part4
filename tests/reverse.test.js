@@ -96,7 +96,7 @@ describe('favoriteBlog function', () => {
   })
 })
 
-// 4.5 Function return author and number of blogs with the most blogs
+// 4.6 Function return author and number of blogs with the most blogs
 describe('mostBlog function', () => {
   test('returns null for an empty list of blogs', () => {
     const blogs = []
@@ -138,6 +138,52 @@ describe('mostBlog function', () => {
     expect(listHelper.mostBlogs(blogs)).toEqual({
       author: 'Author A',
       blogs: 2,
+    })
+  })
+})
+
+// 4.7 Function return author and number of likes with the most likes
+describe('mostLikes function', () => {
+  test('returns null for an empty list of blogs', () => {
+    const blogs = []
+    expect(listHelper.mostLikes(blogs)).toBeNull()
+  })
+
+  test('returns the blog when there\'s only one blog', () => {
+    const blogs = [
+      {
+        title: 'Canonical string reduction',
+        author: 'Edsger W. Dijkstra',
+        likes: 12,
+      },
+    ]
+    expect(listHelper.mostLikes(blogs)).toEqual({
+      author: 'Edsger W. Dijkstra',
+      likes: 12,
+    })
+  })
+
+  test('returns the data object with most likes when there are multiple blogs', () => {
+    const blogs = [
+      {
+        title: 'Blog A',
+        author: 'Author A',
+        likes: 10,
+      },
+      {
+        title: 'Blog B',
+        author: 'Author B',
+        likes: 15,
+      },
+      {
+        title: 'Blog C',
+        author: 'Author A',
+        likes: 8,
+      },
+    ]
+    expect(listHelper.mostLikes(blogs)).toEqual({
+      author: 'Author A',
+      likes: 18,
     })
   })
 })

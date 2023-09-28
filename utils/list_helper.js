@@ -26,7 +26,7 @@ const favoriteBlog = (blogs) => {
   }
 }
 
-// 4.5 Function return author and number of blogs with the most blogs
+// 4.6 Function return author and number of blogs with the most blogs
 const mostBlogs = (blogs) => {
   if (blogs.length === 0) {
     return null // Return null if the list of blogs is empty
@@ -57,9 +57,41 @@ const mostBlogs = (blogs) => {
   }
 }
 
+// 4.7 Function return author and number of likes with the most likes
+const mostLikes = (blogs) => {
+  if (blogs.length === 0) {
+    return null // Return null if the list of blogs is empty
+  }
+  const likeCounts = {}
+
+  blogs.forEach((blog) => {
+    if (blog.author in likeCounts) {
+      likeCounts[blog.author] += blog.likes
+    } else {
+      likeCounts[blog.author] = blog.likes
+    }
+  })
+
+  let topAuthor = ''
+  let maxLikes = 0
+
+  for (const author in likeCounts) {
+    if (likeCounts[author] > maxLikes) {
+      topAuthor = author
+      maxLikes = likeCounts[author]
+    }
+  }
+
+  return {
+    author: topAuthor,
+    likes: maxLikes,
+  }
+}
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
-  mostBlogs
+  mostBlogs,
+  mostLikes
 }
