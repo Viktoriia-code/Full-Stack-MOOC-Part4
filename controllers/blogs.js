@@ -28,6 +28,10 @@ blogsRouter.post('/', (request, response, next) => {
     likes: body.likes,
   })
 
+  if (!blog.title || !blog.url) {
+    response.status(404).end()
+  }
+
   blog.save()
     .then(savedNote => {
       response.json(savedNote)
@@ -35,12 +39,13 @@ blogsRouter.post('/', (request, response, next) => {
     .catch(error => next(error))
 })
 
-blogsRouter.delete('/:id', (request, response, next) => {
-  Blog.findByIdAndRemove(request.params.id)
-    .then(() => {
-      response.status(204).end()
-    })
-    .catch(error => next(error))
+blogsRouter.delete('/:id', async (request, response) => {
+  const deletedBlog = await Blog.findByIdAndRemove(request.params.id)
+  if (deletedBlog) {
+    response.status(204).end()
+  } else {
+    response.status(404).json({ error: 'Blog not found' })
+  }
 })
 
 blogsRouter.put('/:id', (request, response, next) => {
