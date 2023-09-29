@@ -66,7 +66,7 @@ describe('4.10 Verify that making an HTTP POST request to the /api/blogs URL suc
     await supertest(app)
       .post('/api/blogs')
       .send(newBlog)
-      .expect(200)
+      .expect(201)
 
     const NewResponse = await api.get('/api/blogs')
     expect(NewResponse.body).toHaveLength(originBodyLenght+1)
@@ -86,7 +86,7 @@ describe('4.11 Verify that if the likes property is missing from the request, it
     await supertest(app)
       .post('/api/blogs')
       .send(newBlog)
-      .expect(200)
+      .expect(201)
 
     const response = await api.get('/api/blogs')
     expect(response.body[response.body.length-1].likes).toBe(0)
@@ -144,6 +144,28 @@ describe('4.13 Verify functionality for deleting a single blog post resource', (
 
     const NewResponse = await api.get('/api/blogs')
     expect(NewResponse.body).toHaveLength(originBodyLenght-1)
+  })
+})
+
+// 4.14 Verify functionality for updating a blog
+describe('4.13 Verify functionality for updating a blog', () => {
+  test('should return code 200 and post body when update a blog', async () => {
+    const blog = await Blog.findOne({ title: 'React patterns' })
+    const updatedData = {
+      title: 'Updated Title',
+      author: 'Updated Author',
+      url: 'http://updated-example.com',
+      likes: 20,
+      id: String(blog._id)
+    }
+
+    // Perform the PUT request to update the blog post
+    const res = await supertest(app)
+      .put(`/api/blogs/${blog._id}`)
+      .send(updatedData)
+      .expect(200)
+
+    expect(res.body).toEqual(updatedData)
   })
 })
 
