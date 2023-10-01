@@ -3,13 +3,13 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJlbGF0aXZpdHkiLCJpZCI6IjY1MTg3YTE4MmZkZmZhYWY0OTVmMWU1MCIsImlhdCI6MTY5NjE3NzU5NX0.-AnHFykhVM2J6s_0eobX9gTKu3MkJCnxXihxFpNq2OE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJlbGF0aXZpdHkiLCJpZCI6IjY1MTg3YTE4MmZkZmZhYWY0OTVmMWU1MCIsImlhdCI6MTY5NjE4MjE5OH0.rUg5JW2bUER38BmorMQJzyFpbyyzSnuDFJNbcAVJEKQ
 
 {
     "title": "You know Python",
     "author": "Homer Simpson",
     "url": "https://github.com/getify/You-Dont-Know-JS",
-    "likes": 6
+    "likes": 3
 }
 
 ###
