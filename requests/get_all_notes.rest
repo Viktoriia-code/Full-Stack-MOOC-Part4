@@ -5,10 +5,10 @@ POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
 
 {
-    "title": "React patterns",
-    "author": "Michael Chan",
-    "url": "https://reactpatterns.com/",
-    "likes": 7
+    "title": "You don't know JS",
+    "author": "Kyle Simpson",
+    "url": "https://github.com/getify/You-Dont-Know-JS",
+    "likes": 3
 }
 
 ###

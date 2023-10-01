@@ -169,6 +169,56 @@ describe('4.13 Verify functionality for updating a blog', () => {
   })
 })
 
+// 4.16 Verify restrictions to creating new users
+describe('4.16 Verify restrictions to creating new users', () => {
+  test('should return code 400', async () => {
+    const newUser = {
+      'username': 'Emperor',
+      'name': undefined,
+      'password': 'password'
+    }
+
+    // Perform the POST request to create the new user
+    const res = await supertest(app)
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+
+    expect(res.body.error).toBe('username must be unique')
+  })
+  test('should return correct error message', async () => {
+    const newUser = {
+      'username': 'Emperor',
+      'name': undefined,
+      'password': 'password'
+    }
+
+    // Perform the POST request to create the new user
+    const res = await supertest(app)
+      .post('/api/users')
+      .send(newUser)
+
+    expect(res.body.error).toBe('username must be unique')
+  })
+  test('bd lenght should stay same after the request', async () => {
+    const response = await api.get('/api/users')
+    const newUser = {
+      'username': 'Emperor',
+      'name': undefined,
+      'password': 'password'
+    }
+
+    // Perform the POST request to create the new user
+    await supertest(app)
+      .post('/api/users')
+      .send(newUser)
+      .expect(400)
+
+    const updatedResponse = await api.get('/api/users')
+    expect(response.length).toEqual(updatedResponse.length)
+  })
+})
+
 afterAll(async () => {
   await mongoose.connection.close()
 })

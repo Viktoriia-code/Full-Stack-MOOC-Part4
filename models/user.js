@@ -1,6 +1,12 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
+  blogs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog'
+    }
+  ],
   username: {
     type: String,
     minLength: 3,
@@ -11,13 +17,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     minLength: 3,
     required: true
-  },
-  notes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Note'
-    }
-  ],
+  }
 })
 
 userSchema.set('toJSON', {
