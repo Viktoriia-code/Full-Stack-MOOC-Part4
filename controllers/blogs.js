@@ -1,7 +1,6 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
-const jwt = require('jsonwebtoken')
 
 blogsRouter.get('/', async (request, response) => {
   const blogs = await Blog
@@ -28,12 +27,9 @@ blogsRouter.get('/:id', async (request, response) => {
 
 blogsRouter.post('/', async (request, response) => {
   const body = request.body
+  const user = request.user
 
-  const decodedToken = jwt.verify(request.token, process.env.SECRET)
-  if (!decodedToken.id) {
-    return response.status(401).json({ error: 'token invalid' })
-  }
-  const user = await User.findById(decodedToken.id)
+  const updatedUser = await User.findById(user.id)
 
   /*const users = await User.find({})
   const userId = users[Math.floor(Math.random()*users.length)]
@@ -45,7 +41,7 @@ blogsRouter.post('/', async (request, response) => {
     author: body.author,
     url: body.url,
     likes: body.likes,
-    user: user._id
+    user: updatedUser._id
   })
 
   if (!blog.title || !blog.url) {
@@ -54,18 +50,20 @@ blogsRouter.post('/', async (request, response) => {
 
   const savedNote = await blog.save()
 
-  user.blogs = user.blogs.concat(savedNote._id)
-  await user.save()
+  updatedUser.blogs = updatedUser.blogs.concat(savedNote._id)
+  await updatedUser.save()
 
   response.status(201).json(savedNote)
 })
 
 blogsRouter.delete('/:id', async (request, response) => {
-  const deletedBlog = await Blog.findByIdAndRemove(request.params.id)
-  if (deletedBlog) {
+  const blog = await Blog.findById(request.params.id)
+  const user = request.user
+  if (blog.user.toString() === user.id.toString()) {
+    await Blog.findByIdAndRemove(request.params.id)
     response.status(204).end()
   } else {
-    response.status(404).json({ error: 'Blog not found' })
+    response.status(404).json({ error: 'A blog can be deleted only by the user who added the blog' })
   }
 })
 

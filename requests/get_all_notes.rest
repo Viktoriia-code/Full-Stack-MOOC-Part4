@@ -3,13 +3,13 @@ GET http://localhost:3001/api/blogs
 ###
 POST http://localhost:3001/api/blogs/ HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlJlbGF0aXZpdHkiLCJpZCI6IjY1MTg3YTE4MmZkZmZhYWY0OTVmMWU1MCIsImlhdCI6MTY5NjE4MjE5OH0.rUg5JW2bUER38BmorMQJzyFpbyyzSnuDFJNbcAVJEKQ
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVtcGVyb3IiLCJpZCI6IjY1MTg3N2JlMWU1M2Q2MGU5NzYwZDE4ZSIsImlhdCI6MTY5NjI4MDQ3OSwiZXhwIjoxNjk2Mjg0MDc5fQ.VbrIOeVxqo3A1POgcYRje3IM4Fb1vfQJblVKysz7kas
 
 {
-    "title": "You know Python",
-    "author": "Homer Simpson",
+    "title": "Why do you control?",
+    "author": "Marcus Aurelius",
     "url": "https://github.com/getify/You-Dont-Know-JS",
-    "likes": 3
+    "likes": 4
 }
 
 ###
@@ -21,3 +21,8 @@ content-type: application/json
     "name": "Albert Enstein",
     "password": "password"
 }
+
+###
+DELETE http://localhost:3001/api/blogs/651b142a961acc69a4989e2d HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkVtcGVyb3IiLCJpZCI6IjY1MTg3N2JlMWU1M2Q2MGU5NzYwZDE4ZSIsImlhdCI6MTY5NjI3MzU1MiwiZXhwIjoxNjk2Mjc3MTUyfQ.D7T1zjnoPE7MgAA0wJhOC-ygk2s33n2DKl92ZgkOMoM
